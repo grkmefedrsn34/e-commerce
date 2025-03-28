@@ -4,9 +4,10 @@ import ProductList from "./ProductList";
 
 export default function CatalogPage(){
     const [products,SetProducts] = useState<IProduct[]>([]);
+    const [loading, setLoading] = useState(false);  
 
     useEffect(()=>{
-      fetch("http://localhost:5286/api/products").then(response => response.json()).then(data => SetProducts(data));
+      fetch("http://localhost:5286/api/products").then(response => response.json()).then(data => SetProducts(data)).finally(()=>setLoading(false));
     },[]);
     
   

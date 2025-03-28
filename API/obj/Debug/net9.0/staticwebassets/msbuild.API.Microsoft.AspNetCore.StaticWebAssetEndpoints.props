@@ -1,0 +1,40 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/API/images/gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.1j15e9mu6c.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"1j15e9mu6c"},{"Name":"integrity","Value":"sha256-/Qg3NjTfC5QECGIfst3iKEoXkqQmDjvVALBJ\u002BEL69WY="},{"Name":"label","Value":"_content/API/images/gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"40551"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022/Qg3NjTfC5QECGIfst3iKEoXkqQmDjvVALBJ\u002BEL69WY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 11:21:23 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/API/images/gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-/Qg3NjTfC5QECGIfst3iKEoXkqQmDjvVALBJ\u002BEL69WY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"40551"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022/Qg3NjTfC5QECGIfst3iKEoXkqQmDjvVALBJ\u002BEL69WY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 11:21:23 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/API/images/logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.dbhhczgod0.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"dbhhczgod0"},{"Name":"integrity","Value":"sha256-F5YX4WJclorWT5qqwbDwB6\u002BkuHXwLFV4NW0WdvceIsY="},{"Name":"label","Value":"_content/API/images/logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9767"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022F5YX4WJclorWT5qqwbDwB6\u002BkuHXwLFV4NW0WdvceIsY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 11:22:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/API/images/logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-F5YX4WJclorWT5qqwbDwB6\u002BkuHXwLFV4NW0WdvceIsY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"9767"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022F5YX4WJclorWT5qqwbDwB6\u002BkuHXwLFV4NW0WdvceIsY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 26 Mar 2025 11:22:07 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/API/images/İPHONE15TEL.uu7ezu0ot0.webp">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\İPHONE15TEL.webp'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"uu7ezu0ot0"},{"Name":"integrity","Value":"sha256-Rlrd5a\u002BMD5sA\u002BLsTznJC6eNG8MSuf2cDuH7zZf\u002BvBFw="},{"Name":"label","Value":"_content/API/images/\u0130PHONE15TEL.webp"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"100466"},{"Name":"Content-Type","Value":"image/webp"},{"Name":"ETag","Value":"\u0022Rlrd5a\u002BMD5sA\u002BLsTznJC6eNG8MSuf2cDuH7zZf\u002BvBFw=\u0022"},{"Name":"Last-Modified","Value":"Thu, 20 Mar 2025 13:30:10 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/API/images/İPHONE15TEL.webp">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\İPHONE15TEL.webp'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Rlrd5a\u002BMD5sA\u002BLsTznJC6eNG8MSuf2cDuH7zZf\u002BvBFw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"100466"},{"Name":"Content-Type","Value":"image/webp"},{"Name":"ETag","Value":"\u0022Rlrd5a\u002BMD5sA\u002BLsTznJC6eNG8MSuf2cDuH7zZf\u002BvBFw=\u0022"},{"Name":"Last-Modified","Value":"Thu, 20 Mar 2025 13:30:10 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

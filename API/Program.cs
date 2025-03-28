@@ -19,11 +19,13 @@ builder.Services.AddCors();
 
 builder.Services.AddControllers();
 
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddle>();
 
-if(app.Environment.IsDevelopment)
+if(app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseSwaggerUI(options =>{
