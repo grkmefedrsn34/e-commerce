@@ -1,0 +1,58 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>API</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/API</BasePath>
+      <RelativePath>images/gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>1j15e9mu6c</Fingerprint>
+      <Integrity>/Qg3NjTfC5QECGIfst3iKEoXkqQmDjvVALBJ+EL69WY=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>API</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/API</BasePath>
+      <RelativePath>images/logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>dbhhczgod0</Fingerprint>
+      <Integrity>F5YX4WJclorWT5qqwbDwB6+kuHXwLFV4NW0WdvceIsY=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\İPHONE15TEL.webp'))">
+      <SourceType>Package</SourceType>
+      <SourceId>API</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/API</BasePath>
+      <RelativePath>images/İPHONE15TEL.webp</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>uu7ezu0ot0</Fingerprint>
+      <Integrity>Rlrd5a+MD5sA+LsTznJC6eNG8MSuf2cDuH7zZf+vBFw=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\İPHONE15TEL.webp'))</OriginalItemSpec>
+    </StaticWebAsset>
+  </ItemGroup>
+</Project>
