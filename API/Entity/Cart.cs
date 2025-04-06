@@ -5,6 +5,29 @@ namespace API.Entity
         public int CartID {get;set;}
         public int CustomerID {get;set;}
         public List<CartItem> CartItems {get;set;} = new();
+        public void AddItem(Product Product, int Quantity)
+        {
+            var item = CartItem.Where(c => c.ProductID == Product.ID).FirstOrDefault();
+
+            if(item == null)
+            {
+                CartItem.Add(new CartItem {Product = Product , Quantity = Quantity });
+            }
+            else{
+                item.Quantity += Quantity
+            }
+        }
+        public void DeleteItem(int ProductID , int Quantity)
+        {
+            var item = CartItem.Where(c => c.ProductID == Product.ID).FirstOrDefault();
+            if(item == null) return;
+            item.Quantity -= Quantity;
+
+            if(item.Quantity == 0)
+            {
+                CartItem.Remove(item);
+            }
+        }
     }
 
     public class CartItem
