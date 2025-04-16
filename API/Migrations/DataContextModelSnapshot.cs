@@ -22,8 +22,9 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("CustomerID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("CartID");
 

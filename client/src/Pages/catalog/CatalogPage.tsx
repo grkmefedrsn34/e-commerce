@@ -1,22 +1,25 @@
-import { useEffect, useState } from "react";
-import { IProduct } from "../../Model/IProduct";
+import { useEffect } from "react";
 import ProductList from "./ProductList";
-import request from "../../api/Request";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
+import { fetchProducts, selectAllProduct } from "./catalogSlice";
+import { CircularProgress } from "@mui/material";
 
 export default function CatalogPage() {
-    const [products, setProducts] = useState<IProduct[]>([]);
+    const products = useAppSelector(selectAllProduct);
+    const { status ,isLoaded} = useAppSelector((state) => state.catalog);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        request.catalog.list()
-            .then(data => setProducts(data));
-    }, []);
+        if(!isLoaded)
+        dispatch(fetchProducts()); // thunk fonksiyonu çağırıldı
+    }, [isLoaded]);
 
-    function addProduct() {
-        setProducts([...products, { id: Date.now(), name: "product 1907", price: 1907000, isActive: true, stock: 200 }]);
-    }
+    if (status === 'loading') return <CircularProgress />;
 
-    return <ProductList products={products} addProduct={addProduct} />;
+    return (
+        <ProductList 
+            products={products}
+            addProduct={() => { console.log("Ürün eklendi"); }} // gerekli prop eklendi
+        />
+    );
 }
-console.log('CatalogPage component rendered');
-console.log('Products:');
-console.log('Adding new product to catalog');

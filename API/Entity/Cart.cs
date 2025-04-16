@@ -2,42 +2,48 @@ namespace API.Entity
 {
     public class Cart
     {
-        public int CartID {get;set;}
-        public int CustomerID {get;set;}
-        public List<CartItem> CartItems {get;set;} = new();
-        public void AddItem(Product Product, int Quantity)
-        {
-            var item = CartItem.Where(c => c.ProductID == Product.ID).FirstOrDefault();
+        public int CartID { get; set; }
 
-            if(item == null)
+        // NOT: Eðer cookie'den gelen müþteri bilgisi string ise bunu string yapmalýsýn
+        public string CustomerID { get; set; } = string.Empty;
+
+        public List<CartItem> CartItems { get; set; } = new();
+
+        public void AddItem(Product product, int quantity)
+        {
+            var item = CartItems.FirstOrDefault(c => c.ProductID == product.ID);
+
+            if (item == null)
             {
-                CartItem.Add(new CartItem {Product = Product , Quantity = Quantity });
+                CartItems.Add(new CartItem { Product = product, Quantity = quantity });
             }
-            else{
-                item.Quantity += Quantity
+            else
+            {
+                item.Quantity += quantity;
             }
         }
-        public void DeleteItem(int ProductID , int Quantity)
-        {
-            var item = CartItem.Where(c => c.ProductID == Product.ID).FirstOrDefault();
-            if(item == null) return;
-            item.Quantity -= Quantity;
 
-            if(item.Quantity == 0)
+        public void DeleteItem(int productId, int quantity)
+        {
+            var item = CartItems.FirstOrDefault(c => c.ProductID == productId);
+            if (item == null) return;
+
+            item.Quantity -= quantity;
+
+            if (item.Quantity <= 0)
             {
-                CartItem.Remove(item);
+                CartItems.Remove(item);
             }
         }
     }
 
     public class CartItem
     {
-        public int CartItemID {get;set;}
-        public int ProductID {get;set;}
-        public Product Product {get;set;} = null!;
-        public int CartID {get;set;}
-        public Cart Cart {get;set;} = null!;
-        public int Quantity {get;set;}
-
+        public int CartItemID { get; set; }
+        public int ProductID { get; set; }
+        public Product Product { get; set; } = null!;
+        public int CartID { get; set; }
+        public Cart Cart { get; set; } = null!;
+        public int Quantity { get; set; }
     }
 }

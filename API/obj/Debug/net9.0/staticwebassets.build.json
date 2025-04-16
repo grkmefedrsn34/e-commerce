@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MJzx1dW0dgvsiVfG+nA0vCBMYLRo+VEw1cmESPsvSU8=",
+  "Hash": "K9zY2hwv2mTLVHL3KeFmJtvg7ZOZ0hLjgPjy6Wv/Wvo=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "API\\wwwroot",
       "Source": "API",
-      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\",
       "BasePath": "_content/API",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg",
+      "Identity": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\",
       "BasePath": "_content/API",
       "RelativePath": "images/gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -38,10 +38,10 @@
       "OriginalItemSpec": "wwwroot\\images\\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg"
     },
     {
-      "Identity": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\İPHONE15TEL.webp",
+      "Identity": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\İPHONE15TEL.webp",
       "SourceId": "API",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\",
       "BasePath": "_content/API",
       "RelativePath": "images/İPHONE15TEL#[.{fingerprint}]?.webp",
       "AssetKind": "All",
@@ -59,10 +59,10 @@
       "OriginalItemSpec": "wwwroot\\images\\İPHONE15TEL.webp"
     },
     {
-      "Identity": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg",
+      "Identity": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg",
       "SourceId": "API",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\",
       "BasePath": "_content/API",
       "RelativePath": "images/logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -83,7 +83,7 @@
   "Endpoints": [
     {
       "Route": "images/gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.1j15e9mu6c.jpg",
-      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg",
+      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -128,7 +128,7 @@
     },
     {
       "Route": "images/gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg",
-      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg",
+      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\gumus-renk-okyanusun-kalbi-kalpli-mor-tasli-kadin-celik-kolye-eck51-istanbul-ayni-gun-teslimat-kcm94100438-594c5f10-2f69-49b1-87d5-498457c1262e.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -165,7 +165,7 @@
     },
     {
       "Route": "images/İPHONE15TEL.uu7ezu0ot0.webp",
-      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\İPHONE15TEL.webp",
+      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\İPHONE15TEL.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -210,7 +210,7 @@
     },
     {
       "Route": "images/İPHONE15TEL.webp",
-      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\İPHONE15TEL.webp",
+      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\İPHONE15TEL.webp",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -247,7 +247,7 @@
     },
     {
       "Route": "images/logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.dbhhczgod0.jpg",
-      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg",
+      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -292,7 +292,7 @@
     },
     {
       "Route": "images/logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg",
-      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\api\\wwwroot\\images\\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg",
+      "AssetFile": "C:\\Users\\gokhan\\Desktop\\e-commerce\\API\\wwwroot\\images\\logitech-hyperion-fury-g402-910-004068-kablolu-optik-oyuncu-mouse-teshir-kcm19409739-1-8692645f534c47759570baa58b8630b8.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {

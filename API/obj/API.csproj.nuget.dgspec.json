@@ -56,7 +56,7 @@
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.3, )"
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
@@ -96,7 +96,7 @@
             },
             "Microsoft.OpenApi": {
               "target": "Package",
-              "version": "[1.6.23, )"
+              "version": "[1.6.24, )"
             },
             "Swagger": {
               "target": "Package",
@@ -104,7 +104,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[8.1.0, )"
             },
             "System.ComponentModel.Annotations": {
               "target": "Package",

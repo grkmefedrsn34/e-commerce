@@ -37,7 +37,7 @@ if(app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors(opt =>{
-    opt.AllowAnyOrigin().AllowAnyMethod().WithOrigins("http://localhost:5500");
+    opt.AllowAnyOrigin().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:5500");
 });
 app.UseAuthorization();
 app.MapControllers();

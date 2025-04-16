@@ -1,32 +1,44 @@
-import { CircularProgress, Divider, Grid2, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { CircularProgress,Grid, Divider, Stack, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
 import { useParams } from "react-router";
-import { IProduct } from "../../Model/IProduct";
-import request from "../../api/Request";
 import NotFound from "../../errors/NotFound";
+import { LoadingButton } from "@mui/lab";
+import { AddShoppingCart } from "@mui/icons-material";
+import CartSummary from "../cart/CartSummary";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
+import { useEffect } from "react";
+import { addItemToCart } from "../cart/CartSlice";
+import { fetchProductByID, selectProductByID } from "./catalogSlice";
 
 export default function ProductDetails(){
+    const {cart,status} = useAppSelector(state =>state.cart);
+    const dispatch = useAppDispatch();
+    const product = useAppSelector(state =>selectProductByID(state,Number(id)));
+    const {status:loading} = useAppSelector(state =>state.catalog);
+
     const{ id } = useParams<{id:string}>();
-    const [product, setProduct] = useState<IProduct | null>(null);
-    const [loading, setLoading] = useState(true);
+
+
+
+
+    const item = cart?.CartItems.find(i => i.ProductID == product?.id);
 
     useEffect(()=>{
-       id && request.catalog.details(parseInt(id))
-        .then(Response => Response.json())
-        .then(data => setProduct(data))
-        .catch(error => console.log(error))
-        .finally(()=> setLoading(false));
+        if(!product && id){
+            dispatch(fetchProductByID(parseInt(id)))
+        }
     },[id]);
+
+    
 
     if(loading) return <CircularProgress/>
     if(!product) return <NotFound/>
     return (
-        <Grid2 container spacing={2}>
-            <Grid2 size={{xl:3,lg:4,md:5,sm:6,xs:12}}>
+        <Grid container spacing={2}>
+            <Grid size={{xl:3,lg:4,md:5,sm:6,xs:12}}>
                 <img src={`http://localhost:5286/images/${product.imageUrl}`} style={{width:"100%"}}/>
-            </Grid2>
+            </Grid>
 
-            <Grid2 size={{xl:9,lg:8,md:7,sm:6,xs:12}}>
+            <Grid size={{xl:9,lg:8,md:7,sm:6,xs:12}}>
                 <Typography variant="h3" component="h2">{product.name}</Typography>
                 <Divider sx={{mb:2}}/>
                 <Typography variant="h5" component="h2" color="secondary">{(product.price/100).toFixed(2)}$</Typography>
@@ -44,9 +56,19 @@ export default function ProductDetails(){
                             <TableCell>Stock</TableCell>
                             <TableCell>{product.stock}</TableCell>
                         </TableRow>
+                        {/*Cart Summary*/}
+                        <CartSummary/>
                     </TableBody>
                 </TableContainer>
-            </Grid2>
-        </Grid2>
+                <Stack direction="row" sx={{mt:3}} alignItems="center" spacing={2}>
+                    <LoadingButton variant="outlined" loadingPosition="start" startIcon={<AddShoppingCart/>} loading={status === "pendingAddItem" + product.id} onClick={()=>dispatch(addItemToCart({ProductID:product.id}))}>Sepete Ekle</LoadingButton>
+                    {
+                        item?.Quantity! > 0 && (
+                            <Typography variant="body2"> Sepetinize {item?.Quantity} adet eklendi .</Typography>
+                        )
+                    }
+                </Stack>
+            </Grid>
+        </Grid>
     );
 }
