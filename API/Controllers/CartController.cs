@@ -3,6 +3,8 @@ using API.Data;
 using API.Entity;
 using Microsoft.EntityFrameworkCore;
 using API.DTO;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace API.Controllers
 {
@@ -18,6 +20,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<CartDTO>> GetCart()
         {
             return cartToDTO(await GetOrCreate());
