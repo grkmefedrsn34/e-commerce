@@ -24,7 +24,7 @@ export function CartContextProvider({children}:PropsWithChildren<any>){
     const [cart, setCart] = useState<Cart | null>(null);
 
     function deleteItem(ProductID: number, Quantity: number) {
-        
+        // TODO: Ürün silme işlemi eklenecek
     }
 
     return(

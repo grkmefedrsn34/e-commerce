@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { IProduct } from "../../Model/IProduct";
-import { AddShoppingCart, Pending, Search } from "@mui/icons-material";
+import { AddShoppingCart, Search } from "@mui/icons-material";
 import { Link } from "react-router";
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useAppDispatch, useAppSelector } from "../../hooks/hook";

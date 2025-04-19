@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Store/store";
 
 export interface CounterState{
     value: number

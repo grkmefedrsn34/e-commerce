@@ -14,11 +14,11 @@ import { Cart } from "../../Model/ICart";
 import { AddCircleOutline, Delete, RemoveCircleOutline } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { currencyTRY } from "../../utils/formatCurrency";
-import { useDispatch } from "react-redux";
+
 
 export default function ShoppingCartPage() {
   const [localCart, setLocalCart] = useState<Cart | null>(null);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const [status,SetStatus] = useState({loading:false , id:""});
 
   function handleAddItem(ProductID: number, id:string) {

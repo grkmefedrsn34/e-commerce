@@ -9,6 +9,11 @@ const links = [
   {title:"Catolog",to:"/catolog"},
 ]
 
+const authLinks =[
+  {title:"Login",to:"/login"},
+  {title:"Register",to:"/register"},
+]
+
 const styles = {
   color:"inherit",
   TextDecoration:"none",
@@ -38,6 +43,9 @@ function Header(){
                   <ShoppingCart/>
                 </Badge>
             </IconButton>
+            <List sx={{display:"Flex"}}>
+              {authLinks.map(link => <Button  key={link.to} component={NavLink} to={link.to} sx={styles}>{link.title}</Button>)}
+            </List>
           </Box>
         </Toolbar>
       </AppBar>
