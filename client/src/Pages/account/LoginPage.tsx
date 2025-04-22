@@ -1,40 +1,76 @@
 import { LockOutline } from "@mui/icons-material";
-import { Avatar, Box, Button, Container, Paper, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import request from "../../api/Request";
+import { Avatar, Box, Container, Paper, TextField, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { LoadingButton } from "@mui/lab";
+import { useAppDispatch } from "../../hooks/hook";
+import { loginUser } from "./accountSlice";
+import { useNavigate } from "react-router";
 
-export default function  LoginPage()
-{
-    //const [username,SetUserName] = useState("");
-    //const [password,SetPassword] = useState("");
+// Login formuna özel tip tanımı
+type LoginFormInputs = {
+    username: string;
+    password: string;
+};
 
-    const [value,SetValue] = useState({
-        username:"",
-        password:""
-    })
-    function handleSubmit(e:any){
-        e.preventDefault();
-        console.log(value)
-        request.Account.login(value);
-    }
-    function handleChangeInput(e:any){
-        const {name,value} = e.target;
-        SetValue({...value,[name]:value});
+export default function LoginPage() {
+    const { register, handleSubmit, formState: { errors, isSubmitting, isValid } } = useForm<LoginFormInputs>({
+        defaultValues: {
+            username: "",
+            password: ""
+        },
+        mode: "onChange"
+    });
+
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    async function submitForm(data: LoginFormInputs) {
+        await dispatch(loginUser(data));
+        navigate("/catalog");
     }
 
     return (
         <Container maxWidth="xs">
-            <Paper sx={{marginTop:8,padding:2}} elevation={3}>
-                <Avatar sx={{mx:"auto",color:"secondary.main",textAlign:"center",mb:1}}>
-                    <LockOutline/>
+            <Paper sx={{ marginTop: 8, padding: 2 }} elevation={3}>
+                <Avatar sx={{ mx: "auto", color: "secondary.main", textAlign: "center", mb: 1 }}>
+                    <LockOutline />
                 </Avatar>
-                <Typography component="h1" variant="h5" sx={{textAlign:"center"}} >Login</Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt:2}} >
-                    <TextField label="Enter username" fullWidth required autoFocus sx={{mb:2}} size="small" name="userName" value={value.username} onChange={handleChangeInput} />
-                    <TextField label="Enter password" fullWidth required sx={{mb:2}} autoFocus type="password" size="small" name="Password" value={value.password} onChange={handleChangeInput} />
-                    <Button type="submit" variant="contained" sx={{mt:3,mb:2}}>Login</Button>
+                <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>Login</Typography>
+                <Box component="form" noValidate sx={{ mt: 2 }} onSubmit={handleSubmit(submitForm)}>
+                    <TextField
+                        {...register("username", { required: "Username is required" })}
+                        label="Enter username"
+                        fullWidth
+                        required
+                        autoFocus
+                        sx={{ mb: 1 }}
+                        size="small"
+                        error={!!errors.username}
+                        helperText={errors.username?.message}
+                    />
+                    <TextField
+                        {...register("password", {
+                            required: "Password is required",
+                            minLength: {
+                                value: 6,
+                                message: "Min length is 6 characters"
+                            }
+                        })}
+                        label="Enter password"
+                        fullWidth
+                        required
+                        type="password"
+                        sx={{ mb: 2 }}
+                        size="small"
+                        error={!!errors.password}
+                        helperText={errors.password?.message}
+                    />
+                    <LoadingButton loading={isSubmitting} disabled={!isValid} type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+                        Login
+                    </LoadingButton>
                 </Box>
             </Paper>
         </Container>
     );
 }
+

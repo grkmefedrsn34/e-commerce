@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using API.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -19,8 +20,8 @@ namespace API.Controllers
             tokenServices = _tokenServices;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginDTO model)
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user == null)
@@ -31,7 +32,11 @@ namespace API.Controllers
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (result)
             {
-                return Ok(new { token = tokenServices.GenerateToken(user) });
+                return Ok(new UserDTO
+                {
+                    Name = user.Name!,
+                    Token = await tokenServices.GenerateToken(user)
+                });
             }
 
             return Unauthorized();
@@ -62,6 +67,21 @@ namespace API.Controllers
             return BadRequest(new { message = "Kullanıcı oluşturulamadı", errors = result.Errors });
         }
 
-        
+        [Authorize]
+        [HttpGet("getuser")]
+        public async Task<ActionResult<UserDTO>> GetUser()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity?.Name!);
+            if(user == null)
+            {
+                return BadRequest(new { message = "Kullanıcı bulunamadı" });
+            }
+            return new UserDTO
+            {
+                Name = user.Name!,
+                Token = await tokenServices.GenerateToken(user)
+            };
+        }
+
     }
 }
