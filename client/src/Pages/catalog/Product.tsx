@@ -3,8 +3,8 @@ import { IProduct } from "../../Model/IProduct";
 import { AddShoppingCart, Search } from "@mui/icons-material";
 import { Link } from "react-router";
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 import { addItemToCart } from "../cart/CartSlice";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
 
 interface Props{
     product: IProduct

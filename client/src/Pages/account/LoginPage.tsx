@@ -2,9 +2,11 @@ import { LockOutline } from "@mui/icons-material";
 import { Avatar, Box, Container, Paper, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
-import { useAppDispatch } from "../../hooks/hook";
+
 import { loginUser } from "./accountSlice";
 import { useNavigate } from "react-router";
+import { useAppDispatch } from "../../Store/store";
+import { getCart } from "../cart/CartSlice";
 
 // Login formuna özel tip tanımı
 type LoginFormInputs = {
@@ -26,6 +28,7 @@ export default function LoginPage() {
 
     async function submitForm(data: LoginFormInputs) {
         await dispatch(loginUser(data));
+        await dispatch(getCart());
         navigate("/catalog");
     }
 

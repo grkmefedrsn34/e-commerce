@@ -4,10 +4,10 @@ import NotFound from "../../errors/NotFound";
 import { LoadingButton } from "@mui/lab";
 import { AddShoppingCart } from "@mui/icons-material";
 import CartSummary from "../cart/CartSummary";
-import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 import { useEffect } from "react";
 import { addItemToCart } from "../cart/CartSlice";
 import { fetchProductByID, selectProductByID } from "./catalogSlice";
+import { useAppDispatch, useAppSelector } from "../../Store/store";
 
 export default function ProductDetails(){
     const {cart,status} = useAppSelector(state =>state.cart);

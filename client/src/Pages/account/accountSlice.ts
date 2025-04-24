@@ -31,6 +31,24 @@ export const loginUser = createAsyncThunk<User, LoginCredentials, { rejectValue:
   }
 );
 
+export const getUser = createAsyncThunk<User>(
+  "account/getuser",
+  async (_,thunkAPI)=>{
+    thunkAPI.dispatch(setUser(JSON.parse(localStorage.getItem("user")!)));
+    try {
+      const user = await request.Account.getUser();
+      localStorage.setItem("user",JSON.stringify(user));
+      return user;
+    } catch (error:any) {
+      return thunkAPI.rejectWithValue({error:error.data})
+    }
+  },{
+    condition:() => {
+      if(!localStorage.getItem("user")) return false;
+    }
+  }
+);
+
 // Redux slice
 export const accountSlice = createSlice({
   name: "account",
@@ -48,6 +66,15 @@ export const accountSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload;
+    });
+
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+    builder.addCase(loginUser.rejected, (state) => {
+        state.user = null;
+        localStorage.removeItem("user");
+        router.navigate("/login");
     });
   }
 });

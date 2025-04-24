@@ -1,8 +1,10 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, Box, Button, IconButton, List, Stack, Toolbar, Typography } from "@mui/material";
 import { Link, NavLink } from "react-router"; // düzeltildi
-import { useAppDispatch, useAppSelector } from "../hooks/hook";
+
 import { logout } from "../Pages/account/accountSlice";
+import { useAppSelector, useAppDispatch } from "../Store/store";
+import { clearCart } from "../Pages/cart/CartSlice";
 
 const links = [
   { title: "Home", to: "/" },
@@ -58,7 +60,10 @@ function Header() {
           {user ? (
             <Stack direction="row" spacing={1}>
               <Button sx={styles}>{user.name}</Button>
-              <Button sx={styles} onClick={() => dispatch(logout())}>
+              <Button sx={styles} onClick={() => {
+                dispatch(logout())
+                dispatch(clearCart())
+                }}>
                 LogOut
               </Button>
             </Stack>

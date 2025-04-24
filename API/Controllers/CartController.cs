@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using API.DTO;
 using Microsoft.AspNetCore.Authorization;
 
-
 namespace API.Controllers
 {
     [ApiController]
@@ -23,7 +22,8 @@ namespace API.Controllers
         [Authorize]
         public async Task<ActionResult<CartDTO>> GetCart()
         {
-            return cartToDTO(await GetOrCreate());
+            var cart = await GetOrCreate();
+            return cartToDTO(cart);
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace API.Controllers
         public async Task<ActionResult> DeleteItemFromCart(int productId, int quantity)
         {
             var cart = await GetOrCreate();
-            
+
             cart.DeleteItem(productId, quantity);
             var result = await _context.SaveChangesAsync() > 0;
             if (result)
@@ -59,9 +59,14 @@ namespace API.Controllers
             return BadRequest(new ProblemDetails { Title = "Failed to delete item from cart" });
         }
 
+        private string GetCustomerID()
+        {
+            return User.Identity?.Name ?? Request.Cookies["customerID"]!;
+        }
+
         private async Task<Cart> GetOrCreate()
         {
-            var customerId = Request.Cookies["customerID"];
+            var customerId = GetCustomerID();
 
             var cart = await _context.Carts
                             .Include(c => c.CartItems)
@@ -70,14 +75,18 @@ namespace API.Controllers
 
             if (cart == null)
             {
-                customerId = Guid.NewGuid().ToString();
-                var cookieOptions = new CookieOptions
+                if (string.IsNullOrEmpty(customerId) || User.Identity?.IsAuthenticated == false)
                 {
-                    Expires = DateTime.Now.AddMonths(1),
-                    IsEssential = true
-                };
+                    customerId = Guid.NewGuid().ToString();
 
-                Response.Cookies.Append("customerID", customerId, cookieOptions);
+                    var cookieOptions = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddMonths(1),
+                        IsEssential = true
+                    };
+
+                    Response.Cookies.Append("customerID", customerId, cookieOptions);
+                }
 
                 cart = new Cart { CustomerID = customerId };
                 _context.Carts.Add(cart);
