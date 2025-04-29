@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialClean : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,14 +33,14 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    City = table.Column<string>(type: "TEXT", nullable: true),
-                    Country = table.Column<string>(type: "TEXT", nullable: true),
-                    ZipCode = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false),
+                    City = table.Column<string>(type: "TEXT", nullable: false),
+                    Country = table.Column<string>(type: "TEXT", nullable: false),
+                    ZipCode = table.Column<string>(type: "TEXT", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -73,6 +73,28 @@ namespace API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.CartID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    AddresLine = table.Column<string>(type: "TEXT", nullable: true),
+                    CustomerID = table.Column<string>(type: "TEXT", nullable: true),
+                    OrderStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    SubTotal = table.Column<decimal>(type: "TEXT", nullable: false),
+                    DeliveryFree = table.Column<decimal>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,6 +248,37 @@ namespace API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    OrderID = table.Column<string>(type: "TEXT", nullable: true),
+                    OrderID1 = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductName = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductImage = table.Column<string>(type: "TEXT", nullable: false),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Orders_OrderID1",
+                        column: x => x.OrderID1,
+                        principalTable: "Orders",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ID", "Description", "ImageUrl", "IsActive", "Name", "Price", "Stock" },
@@ -277,6 +330,16 @@ namespace API.Migrations
                 name: "IX_CartItem_ProductID",
                 table: "CartItem",
                 column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_OrderID1",
+                table: "OrderItem",
+                column: "OrderID1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_ProductID",
+                table: "OrderItem",
+                column: "ProductID");
         }
 
         /// <inheritdoc />
@@ -301,6 +364,9 @@ namespace API.Migrations
                 name: "CartItem");
 
             migrationBuilder.DropTable(
+                name: "OrderItem");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -308,6 +374,9 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");

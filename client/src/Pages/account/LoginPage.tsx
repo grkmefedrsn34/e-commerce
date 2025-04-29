@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
 
 import { loginUser } from "./accountSlice";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useAppDispatch } from "../../Store/store";
 import { getCart } from "../cart/CartSlice";
 
@@ -25,11 +25,12 @@ export default function LoginPage() {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     async function submitForm(data: LoginFormInputs) {
         await dispatch(loginUser(data));
         await dispatch(getCart());
-        navigate("/catalog");
+        navigate(location.state?.from || "/catalog");
     }
 
     return (
