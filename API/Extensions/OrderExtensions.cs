@@ -20,9 +20,10 @@ namespace API.Extensions
                 OrderStatus = x.OrderStatus,
                 SubTotal = x.SubTotal,
                 DeliveryFree = x.DeliveryFree,
-                OrderItems = x.OrderItems.Select(i => new OrderItem
+                OrderItems = x.OrderItems.Select(i => new OrderItemDTO
                 {
                     ID = i.ID,
+                    OrderID = i.OrderID.ToString(),
                     ProductID = i.ProductID,
                     ProductName = i.Product.Name,
                     ProductImage = i.Product.ImageUrl,

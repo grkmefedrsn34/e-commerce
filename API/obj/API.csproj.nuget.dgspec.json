@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\API\\API.csproj": {}
+    "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\API\\API.csproj": {
+    "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\API\\API.csproj",
+        "projectPath": "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\api\\API.csproj",
         "packagesPath": "C:\\Users\\gokhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\API\\obj\\",
+        "outputPath": "C:\\Users\\gokhan\\Documents\\GitHub\\e-commerce\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Iyzipay": {
+              "target": "Package",
+              "version": "[2.1.67, )"
+            },
             "Microsoft.AspNet.Identity.EntityFramework": {
               "target": "Package",
               "version": "[2.2.4, )"

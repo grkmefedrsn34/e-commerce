@@ -18,6 +18,8 @@
         {
             return SubTotal + DeliveryFree;
         }
+         public string? ConversationId { get; set; }
+        public string? BasketId { get; set; }
     }
 
     public class OrderItem
@@ -31,7 +33,8 @@
         public string ProductImage { get; set; } = null!;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-
+        public string? ConversationId { get; set; }
+        public string? BasketId { get; set; }
     }
 
     public enum OrderStatus

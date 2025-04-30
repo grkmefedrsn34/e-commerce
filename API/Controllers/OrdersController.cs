@@ -1,131 +1,71 @@
-﻿using API.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using API.Data;
 using API.DTO;
 using API.Entity;
+using API.Extensions;
+using Iyzipay;
+using Iyzipay.Model;
+using Iyzipay.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
         private readonly DataContext _context;
-
-        public OrdersController(DataContext context)
+        private readonly IConfiguration _config;
+        public OrdersController(DataContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<OrderDTO>>> GetOrders()
         {
-            var username = User.Identity?.Name;
-
-            if (username == null)
-            {
-                return Unauthorized();
-            }
-
-            var orders = await _context.Orders
-                .Include(o => o.OrderItems)
-                .Where(o => o.CustomerID == username)
-                .Select(o => new OrderDTO
-                {
-                    ID = o.ID,
-                    CustomerID = o.CustomerID,
-                    FirstName = o.FirstName,
-                    LastName = o.LastName,
-                    Phone = o.Phone,
-                    City = o.City,
-                    AddresLine = o.AddresLine,
-                    OrderDate = o.OrderDate,
-                    OrderStatus = o.OrderStatus,
-                    SubTotal = o.SubTotal,
-                    DeliveryFree = o.DeliveryFree,
-                    OrderItems = o.OrderItems.Select(oi => new OrderItemDTO
-                    {
-                        ID = oi.ID,
-                        OrderID = oi.OrderID.ToString(),
-                        ProductID = oi.ProductID,
-                        ProductName = oi.ProductName,
-                        ProductImage = oi.ProductImage,
-                        Price = oi.Price,
-                        Quantity = oi.Quantity
-                    }).ToList()
-                })
-                .ToListAsync();
-
-            return orders;
+            return await _context.Orders
+                        .Include(i => i.OrderItems)
+                        .OrderToDTO()
+                        .Where(i => i.CustomerID == User.Identity!.Name)
+                        .ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderDTO?>> GetOrder(int id)
         {
-            var username = User.Identity?.Name;
-
-            if (username == null)
-            {
-                return Unauthorized();
-            }
-
-            var order = await _context.Orders
-                .Include(o => o.OrderItems)
-                .Where(o => o.ID == id && o.CustomerID == username)
-                .Select(o => new OrderDTO
-                {
-                    ID = o.ID,
-                    CustomerID = o.CustomerID,
-                    FirstName = o.FirstName,
-                    LastName = o.LastName,
-                    Phone = o.Phone,
-                    City = o.City,
-                    AddresLine = o.AddresLine,
-                    OrderDate = o.OrderDate,
-                    OrderStatus = o.OrderStatus,
-                    SubTotal = o.SubTotal,
-                    DeliveryFree = o.DeliveryFree,
-                    OrderItems = o.OrderItems.Select(oi => new OrderItemDTO
-                    {
-                        ID = oi.ID,
-                        OrderID = oi.OrderID.ToString(),
-                        ProductID = oi.ProductID,
-                        ProductName = oi.ProductName,
-                        ProductImage = oi.ProductImage,
-                        Price = oi.Price,
-                        Quantity = oi.Quantity
-                    }).ToList()
-                })
-                .FirstOrDefaultAsync();
-
-            if (order == null)
-                return NotFound();
-
-            return order;
+            return await _context.Orders
+                        .Include(i => i.OrderItems)
+                        .OrderToDTO()
+                        .Where(i => i.CustomerID == User.Identity!.Name && i.ID == id)
+                        .FirstOrDefaultAsync();
         }
 
-        [HttpPost("CreateOrder")]
-        public async Task<ActionResult<Order>> CreateOrder(CreateOrderDTO orderDto)
+        [HttpPost]
+        public async Task<ActionResult<Order>> CreateOrder(CreateOrderDTO orderDTO)
         {
-            var cart = await _context.Carts.Include(c => c.CartItems)
-                .ThenInclude(i => i.Product)
-                .Where(c => c.CustomerID == User.Identity!.Name)
-                .FirstOrDefaultAsync();
-            if (cart == null)
-            {
-                return BadRequest(new ProblemDetails { Title = "Problem getting cart" });
-            }
-            if (cart.CartItems.Count == null)
-            {
-                return BadRequest(new ProblemDetails { Title = "Cart is empty" });
-            }
+            var cart = await _context.Carts
+                        .Include(i => i.CartItems)
+                        .ThenInclude(i => i.Product)
+                        .Where(i => i.CustomerID == User.Identity!.Name)
+                        .FirstOrDefaultAsync();
 
-            var items = new List<OrderItem>();
+            if (cart == null) return BadRequest(new ProblemDetails { Title = "Problem getting cart" });
+
+            var items = new List<Entity.OrderItem>();
 
             foreach (var item in cart.CartItems)
             {
                 var product = await _context.Products.FindAsync(item.ProductID);
-                var orderItem = new OrderItem
+
+                var orderItem = new Entity.OrderItem
                 {
                     ProductID = product!.ID,
                     ProductName = product.Name!,
@@ -133,36 +73,113 @@ namespace API.Controllers
                     Price = product.Price,
                     Quantity = item.Quantity
                 };
+
                 items.Add(orderItem);
                 product.Stock -= item.Quantity;
             }
 
-            var subtotal = items.Sum(i => i.Price * i.Quantity);
-            var deliveryFree = 0;
+            var subTotal = items.Sum(i => i.Price * i.Quantity);
+            var deliveryFee = 0;
 
             var order = new Order
             {
                 OrderItems = items,
                 CustomerID = User.Identity!.Name,
-                FirstName = orderDto.FirstName,
-                LastName = orderDto.LastName,
-                Phone = orderDto.Phone,
-                City = orderDto.City,
-                AddresLine = orderDto.AddresLine,
-                SubTotal = subtotal,
-                DeliveryFree = deliveryFree,    
+                FirstName = orderDTO.FirstName,
+                LastName = orderDTO.LastName,
+                Phone = orderDTO.Phone,
+                City = orderDTO.City,
+                AddresLine = orderDTO.AddresLine,
+                SubTotal = subTotal,
+                DeliveryFree = deliveryFee,
             };
+
+            var paymentResult = await ProcessPayment(orderDTO, cart);
+
+            order.ConversationId = paymentResult.ConversationId;
+            order.BasketId = paymentResult.BasketId;
 
             _context.Orders.Add(order);
             _context.Carts.Remove(cart);
 
             var result = await _context.SaveChangesAsync() > 0;
 
-            if(result)
+            if (result)
+                return CreatedAtAction(nameof(GetOrder), new { id = order.ID }, order.ID);
+
+            return BadRequest(new ProblemDetails { Title = "Problem getting order" });
+        }
+
+        private async Task<Payment> ProcessPayment(CreateOrderDTO model, Cart cart)
+        {
+            Options options = new Options();
+            options.ApiKey = _config["PaymentAPI:APIKey"];
+            options.SecretKey = _config["PaymentAPI:SecretKey"];
+
+            options.BaseUrl = "https://sandbox-api.iyzipay.com";
+
+            CreatePaymentRequest request = new CreatePaymentRequest();
+            request.Locale = Locale.TR.ToString();
+            request.ConversationId = Guid.NewGuid().ToString();
+            request.Price = cart.CalculateTotal().ToString();
+            request.PaidPrice = cart.CalculateTotal().ToString();
+            request.Currency = Currency.TRY.ToString();
+            request.Installment = 1;
+            request.BasketId = Guid.NewGuid().ToString();
+            request.PaymentChannel = PaymentChannel.WEB.ToString();
+            request.PaymentGroup = PaymentGroup.PRODUCT.ToString();
+
+            PaymentCard paymentCard = new PaymentCard();
+            paymentCard.CardHolderName = model.CartName;
+            paymentCard.CardNumber = model.CartNumber;
+            paymentCard.ExpireMonth = model.CartExpirationMonth;
+            paymentCard.ExpireYear = model.CartExpirationYear;
+            paymentCard.Cvc = model.CartCVC;
+            paymentCard.RegisterCard = 0;
+            request.PaymentCard = paymentCard;
+
+            Buyer buyer = new Buyer();
+            buyer.Id = "BY789";
+            buyer.Name = model.FirstName;
+            buyer.Surname = model.LastName;
+            buyer.GsmNumber = model.Phone;
+            buyer.Email = "email@email.com";
+            buyer.IdentityNumber = "74300864791";
+            buyer.LastLoginDate = "2015-10-05 12:43:35";
+            buyer.RegistrationDate = "2013-04-21 15:12:09";
+            buyer.RegistrationAddress = model.AddresLine;
+            buyer.Ip = "85.34.78.112";
+            buyer.City = model.City;
+            buyer.Country = "Türkiye";
+            buyer.ZipCode = "34732";
+            request.Buyer = buyer;
+
+            Address shippingAddress = new Address();
+            shippingAddress.ContactName = model.FirstName + " " + model.LastName;
+            shippingAddress.City = model.City;
+            shippingAddress.Country = "Türkiye";
+            shippingAddress.Description = model.AddresLine;
+            shippingAddress.ZipCode = "34742";
+
+            request.ShippingAddress = shippingAddress;
+            request.BillingAddress = shippingAddress;
+
+            List<BasketItem> basketItems = new List<BasketItem>();
+
+            foreach (var item in cart.CartItems)
             {
-                return CreatedAtRoute(nameof(GetOrder), new {id=order.ID},order.ID);
+                BasketItem basketItem = new BasketItem();
+                basketItem.Id = item.ProductID.ToString();
+                basketItem.Name = item.Product.Name;
+                basketItem.Category1 = "Saat";
+                basketItem.ItemType = BasketItemType.PHYSICAL.ToString();
+                basketItem.Price = ((double)item.Product.Price * item.Quantity).ToString();
+                basketItems.Add(basketItem);
             }
-            return BadRequest(new ProblemDetails { Title = "Problem creating order" });
+
+            request.BasketItems = basketItems;
+
+            return await Payment.Create(request, options);
         }
     }
 }
