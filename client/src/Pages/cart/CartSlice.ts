@@ -51,6 +51,11 @@ export const getCart = createAsyncThunk<Cart>(
         }
     }
 );
+interface DeleteItemPayload {
+    ProductID: number;
+    Quantity?: number;
+    key?: string; // Bu satırı ekleyin
+  }
 
 // SLICELAR
 export const cartSlice = createSlice({
@@ -100,5 +105,6 @@ export const cartSlice = createSlice({
     }
 });
 
+export const DeleteItemPayload = cartSlice.name;
 export const { setCart,clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

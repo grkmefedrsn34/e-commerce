@@ -1,85 +1,102 @@
-import { ShoppingCart } from "@mui/icons-material";
-import { AppBar, Badge, Box, Button, IconButton, List, Stack, Toolbar, Typography } from "@mui/material";
-import { Link, NavLink } from "react-router"; // düzeltildi
+import { KeyboardArrowDown, ShoppingCart } from "@mui/icons-material";
+import { AppBar, Badge, Box, Button, Container, IconButton, Menu, MenuItem, Stack, Toolbar } from "@mui/material";
+import { Link, NavLink } from "react-router";
 
+import React, { useState } from "react";
 import { logout } from "../Pages/account/accountSlice";
-import { useAppSelector, useAppDispatch } from "../Store/store";
 import { clearCart } from "../Pages/cart/CartSlice";
+import { useAppSelector, useAppDispatch } from "../Store/store";
 
 const links = [
-  { title: "Home", to: "/" },
-  { title: "About", to: "/about" },
-  { title: "Contact", to: "/contact" },
-  { title: "Catalog", to: "/catalog" }, // yazım hatası düzeltildi
-];
+  { title: "Home", to: "/"},
+  { title: "Catalog", to: "/catalog"},
+  { title: "About", to: "/about"},
+  { title: "Contact", to: "/contact"},
+  { title: "Error", to: "/error"},
+]
 
 const authLinks = [
-  { title: "Login", to: "/login" },
-  { title: "Register", to: "/register" },
-];
+  { title: "Login", to: "/login"},
+  { title: "Register", to: "/register"}
+]
 
-const styles = {
+const navStyles = {
   color: "inherit",
-  textDecoration: "none", // camelCase düzeltildi
+  textDecoration: "none",
   "&:hover": {
-    color: "#fff",
+    color: "text.primary"
   },
   "&.active": {
-    color: "warning.main",
-  },
-};
-
-function Header() {
-  const { cart } = useAppSelector((state) => state.cart);
-  const { user } = useAppSelector((state) => state.account); // account slice mevcut olmalı
-  const dispatch = useAppDispatch();
-
-  const count = cart?.CartItems.reduce((total, item) => total + item.Quantity, 0) || 0;
-
-  return (
-    <AppBar position="static" sx={{ mb: 4 }}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography variant="h6">E-Commerce</Typography>
-          <List sx={{ display: "flex" }}>
-            {links.map((link) => (
-              <Button key={link.to} component={NavLink} to={link.to} sx={styles}>
-                {link.title}
-              </Button>
-            ))}
-          </List>
-        </Box>
-
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <IconButton size="large" edge="start" color="inherit" component={Link} to="/cart">
-            <Badge badgeContent={count} color="secondary">
-              <ShoppingCart />
-            </Badge>
-          </IconButton>
-
-          {user ? (
-            <Stack direction="row" spacing={1}>
-              <Button sx={styles}>{user.name}</Button>
-              <Button sx={styles} onClick={() => {
-                dispatch(logout())
-                dispatch(clearCart())
-                }}>
-                LogOut
-              </Button>
-            </Stack>
-          ) : (
-            <Stack direction="row" spacing={1}>
-              {authLinks.map((link) => (
-                <Button key={link.to} component={NavLink} to={link.to} sx={styles}>
-                  {link.title}
-                </Button>
-              ))}
-            </Stack>
-          )}
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
+    color: "warning.main"
+  }
 }
 
-export default Header;
+export default function Header() {
+    const { cart } =  useAppSelector(state => state.cart);
+    const { user } =  useAppSelector(state => state.account);
+    const dispatch = useAppDispatch();
+
+    const itemCount = cart?.CartItems.reduce((total, item) => total + item.Quantity, 0);
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    function handleMenuClick(event: React.MouseEvent<HTMLButtonElement>) {
+      setAnchorEl(event.currentTarget);
+    }
+
+    function handleClose() {
+      setAnchorEl(null);
+    }
+
+    return (
+      <AppBar position="static" sx={{ mb: 4 }}>
+        <Container maxWidth="lg">
+          <Toolbar disableGutters sx={ { display: "flex", justifyContent: "space-between"} }>
+              <Box sx={{ display: "flex", alignItems: "center"}}>
+                <Stack direction="row">
+                  { links.map(link => 
+                    <Button key={link.to} component={NavLink} to={link.to} sx={navStyles}>{link.title}</Button>
+                  ) }
+                </Stack>
+
+              </Box>
+
+              <Box sx={{ display: "flex", alignItems: "center"}}>
+                  <IconButton component={Link} to="/cart" size="large" edge="start" color="inherit">
+                    <Badge badgeContent={itemCount} color="secondary">
+                      <ShoppingCart/>
+                    </Badge>
+                  </IconButton>
+
+                  {
+                    user ? (
+                      <>
+                          <Button id="user-button" onClick={handleMenuClick} endIcon={<KeyboardArrowDown />} sx={navStyles}>{user.name}</Button>
+                      
+                          <Menu id="user-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+                            <MenuItem component={Link} to="/orders">Orders</MenuItem>
+                            <MenuItem onClick={() => { 
+                              dispatch(logout())
+                              dispatch(clearCart())
+                            }}>Logout</MenuItem>
+                          </Menu>
+                      </>
+                    ): (
+                      <Stack direction="row">
+                        { 
+                          authLinks.map(link => 
+                            <Button key={link.to} component={NavLink} to={link.to} sx={navStyles}>{link.title}</Button>) 
+                        }
+                      </Stack>
+                    )
+                  }
+
+                
+              </Box>
+          </Toolbar>
+        </Container>
+
+      </AppBar>
+    );
+  }

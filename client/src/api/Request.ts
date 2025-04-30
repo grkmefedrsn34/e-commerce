@@ -122,12 +122,19 @@ const Account = {
   getUser:()=>queries.get("account/getuser")
 };
 
+const Orders = {
+  getOrders:() =>queries.get("orders"),
+  getOrder : (id:number) => queries.get(`orders/${id}`),
+  CreateOrder: (formData:any) => queries.post("orders",formData)
+}
+
 // Exporting request object
 const request = {
   catalog,
   Errors,
   Cart,
   Account,
+  Orders
 };
 
 export default request;

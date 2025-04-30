@@ -8,16 +8,16 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public OrderController(DataContext context)
+        public OrdersController(DataContext context)
         {
             _context = context;
         }
 
-        [HttpGet("GetOrders")]
+        [HttpGet]
         public async Task<ActionResult<List<OrderDTO>>> GetOrders()
         {
             var username = User.Identity?.Name;
@@ -59,7 +59,7 @@ namespace API.Controllers
             return orders;
         }
 
-        [HttpGet("{id}", Name = "GetOrder")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<OrderDTO?>> GetOrder(int id)
         {
             var username = User.Identity?.Name;
